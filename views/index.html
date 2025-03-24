@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  </head>
+  <body>
+    <form
+      class="signup-form p-12 bg-black bg-opacity-80 w-3/12 mt-36 mx-auto right-0 left-0 text-white rounded-lg"
+    >
+      <h1 class="font-bold text-3xl py-4">Sign Up</h1>
+      <label for="username">Enter your name: </label>
+      <input
+        type="text"
+        id="username"
+        name="username"
+        class="p-4 my-2 bg-gray-700 w-full"
+        placeholder="Enter your name"
+        required
+      />
+      <br /><br />
+      <label for="email">Enter your email: </label>
+      <input
+        type="email"
+        id="email"
+        name="email"
+        class="p-4 my-2 bg-gray-700 w-full"
+        placeholder="Enter your email"
+        required
+      />
+      <br /><br />
+      <label for="password">Enter your password: </label>
+      <input
+        type="password"
+        id="password"
+        name="password"
+        class="p-4 my-2 bg-gray-700 w-full"
+        placeholder="Enter your password"
+        required
+      />
+      <br /><br />
+      <button
+        id="signup"
+        class="p-4 my-4 text-white border-black bg-red-700 w-full rounded-lg"
+        type="submit"
+      >
+        SignUp
+      </button>
+      <p class="py-4 cursor-pointer">Existing User - Login</p>
+    </form>
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="/js/signup.js"></script>
+  </body>
+</html>
+
+<!--       <form className="absolute p-12 bg-black w-3/12 mt-36 mx-auto right-0 left-0  text-white rounded-lg bg-opacity-80">
+        <h1 className="font-bold text-3xl py-4">
+          {isSignInForm ? "Sign In" : "Sign Up"}
+        </h1>
+        {!isSignInForm && (
+          <input
+            type="text"
+            placeholder="Enter Full Name"
+            className="p-4 my-4 w-full bg-gray-700"
+          />
+        )}
+        <input
+          ref={email}
+          type="email"
+          placeholder="Enter address"
+          className="p-4 my-4 w-full bg-gray-700"
+        />
+
+        <input
+          ref={password}
+          type="password"
+          placeholder="Enter password"
+          className="p-4 my-4 w-full bg-gray-700"
+        />
+        <button
+          onSubmit={(e) => {
+            e.preventDefault();
+          }}
+          onClick={handleButtonClick}
+          className="p-4 my-6 text-white border-black bg-red-700 w-full rounded-lg"
+        >
+          {isSignInForm ? "Sign In" : "Sign Up"}
+        </button>
+        <p className="py-4 cursor-pointer" onClick={toggleSignInForm}>
+          {isSignInForm
+            ? "New to Netflix? Sign Up Now"
+            : "Already registered Sign In Now..."}
+        </p>
+      </form> -->
