@@ -48,10 +48,6 @@ document.addEventListener("click", (e) => {
   }
 });
 
-// toggleForm.addEventListener("click", () => {
-//   isLoginForm = !isLoginForm;
-// });
-
 form.addEventListener("submit", async (e) => {
   e.preventDefault();
   const email = e.target.email.value;
@@ -72,6 +68,7 @@ form.addEventListener("submit", async (e) => {
       errMsg.textContent = "Login successful!";
       errMsg.classList.remove("text-red-500");
       errMsg.classList.add("text-green-500");
+      window.location.href = "/expense";
     } catch (error) {
       console.log(error);
       errMsg.textContent = error.response?.data?.message || "Login failed!";
