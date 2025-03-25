@@ -55,10 +55,10 @@ app.post("/user/login", async (req, res) => {
         .json({ message: "User not found! Please sign up." });
     } else {
       if (user.password !== password) {
-        return res.status(401).json({ message: "Incorrect password!" });
+        return res.status(401).json({ message: "User not authorized!" });
       }
     }
-    return res.status(200).json({ message: "Login successful!", user });
+    return res.status(200).json({ message: "User Login successful!", user });
   } catch (error) {
     return res
       .status(500)
