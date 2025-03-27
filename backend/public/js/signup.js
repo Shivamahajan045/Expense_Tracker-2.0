@@ -1,9 +1,10 @@
 const form = document.querySelector(".signup-form");
-const toggleForm = document.getElementById("toggle-form");
+// const toggleForm = document.getElementById("toggle-form");
 const errMsg = document.createElement("p");
 errMsg.classList.add("text-red-500", "mt-2");
 form.appendChild(errMsg);
 
+/*
 let isLoginForm = false;
 
 function renderForm() {
@@ -48,51 +49,29 @@ document.addEventListener("click", (e) => {
   }
 });
 
+*/
+
 form.addEventListener("submit", async (e) => {
   e.preventDefault();
-  const email = e.target.email.value;
-  const password = e.target.password.value;
-  const loginData = {
-    email: email,
-    password: password,
+
+  const signUpData = {
+    username: e.target.username.value,
+    email: e.target.email.value,
+    password: e.target.password.value,
   };
 
-  if (isLoginForm) {
-    try {
-      let response = await axios.post(
-        "http://localhost:3000/user/login",
-        loginData
-      );
-      console.log(response);
-      console.log(response.data.message);
-      errMsg.textContent = "Login successful!";
-      errMsg.classList.remove("text-red-500");
-      errMsg.classList.add("text-green-500");
-      window.location.href = "/expense";
-    } catch (error) {
-      console.log(error);
-      errMsg.textContent = error.response?.data?.message || "Login failed!";
-    }
-  } else {
-    const signUpData = {
-      username: e.target.username.value,
-      email: e.target.email.value,
-      password: e.target.password.value,
-    };
-
-    try {
-      let response = await axios.post(
-        "http://localhost:3000/user/signup",
-        signUpData
-      );
-      // console.log("Full Response Object:", response); // Debugging
-      // console.log("Response Data:", response.data); // Debugging
-      console.log("Response Message:", response.data.message); // This should now print
-      errMsg.textContent = "User registered successfully!";
-      errMsg.classList.remove("text-red-500");
-      errMsg.classList.add("text-green-500");
-    } catch (error) {
-      errMsg.textContent = error.response?.data?.message || "Signup failed!";
-    }
+  try {
+    let response = await axios.post(
+      "http://localhost:3000/user/signup",
+      signUpData
+    );
+    // console.log("Full Response Object:", response); // Debugging
+    // console.log("Response Data:", response.data); // Debugging
+    console.log("Response Message:", response.data.message); // This should now print
+    errMsg.textContent = "User registered successfully!";
+    errMsg.classList.remove("text-red-500");
+    errMsg.classList.add("text-green-500");
+  } catch (error) {
+    errMsg.textContent = error.response?.data?.message || "Signup failed!";
   }
 });

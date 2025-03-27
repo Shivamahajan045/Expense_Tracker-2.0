@@ -7,24 +7,34 @@ form.addEventListener("submit", async (e) => {
   let description = e.target.description.value;
   let category = e.target.category.value;
 
-  let expenseData = {
-    amount: amount,
-    description: description,
-    category: category,
-  };
+  const token = localStorage.getItem("token"); //  Get token from localStorage
 
-  let response = await axios.post(
-    "http://localhost:3000/expense/addExpense",
-    expenseData
-  );
-  fetchAllExpense();
+  try {
+    let response = await axios.post(
+      "http://localhost:3000/expense/addExpense",
+      { amount, description, category },
+      { headers: { Authorization: token } } //  Send token in headers
+    );
+    console.log("Expense Added:", response.data);
+
+    fetchAllExpense(); // Refresh expenses after adding new one
+  } catch (error) {
+    console.error("Error Adding Expense:", error.response.data);
+  }
 });
 
 async function fetchAllExpense() {
-  let response = await axios.get("http://localhost:3000/expense/getAllExpense");
+  const token = localStorage.getItem("token");
+  let response = await axios.get(
+    "http://localhost:3000/expense/getAllExpense",
+    { headers: { Authorization: token } }
+  );
+  console.log("Fetched Expenses:", response.data);
   // console.log(response.data.response); //Array
   ul.innerHTML = "";
-  response.data.response.forEach((expense) => addExpenseToUI(expense));
+  response.data.response.forEach((expense) => {
+    addExpenseToUI(expense);
+  });
 }
 
 document.addEventListener("DOMContentLoaded", fetchAllExpense);
@@ -53,8 +63,10 @@ function addExpenseToUI(expense) {
 
 const deleteExpense = async (id) => {
   try {
+    const token = localStorage.getItem("token");
     let response = await axios.delete(
-      `http://localhost:3000/expense/delete/${id}`
+      `http://localhost:3000/expense/delete/${id}`,
+      { headers: { Authorization: token } }
     );
     fetchAllExpense();
     console.log("Expense deleted successfully");

@@ -1,5 +1,7 @@
 const User = require("../models/user");
 const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
+require("dotenv").config();
 
 const createUser = async (req, res) => {
   try {
@@ -28,6 +30,9 @@ const createUser = async (req, res) => {
   }
 };
 
+function generateAccessToken(id) {
+  return jwt.sign({ userId: id }, process.env.ACCESS_TOKEN_SECRET);
+}
 const getUser = async (req, res) => {
   try {
     let { email, password } = req.body;
@@ -48,9 +53,12 @@ const getUser = async (req, res) => {
     if (!result) {
       return res.status(401).json({ message: "Incorrect password!" });
     }
-    return res
-      .status(200)
-      .json({ success: true, message: "User loggedin successfully!" });
+
+    return res.status(200).json({
+      success: true,
+      message: "User loggedin successfully!",
+      token: generateAccessToken(user.id),
+    });
   } catch (error) {
     return res
       .status(500)
